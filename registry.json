@@ -7,7 +7,7 @@
   "routes": {
     "test": {
       "name": "Hardware QR feasibility test",
-      "revision": "Prototype only â€” do not fabricate",
+      "revision": "Prototype only — do not fabricate",
       "url": "https://github.com/irshad-js/h/blob/main/README.md"
     },
     "001": {
