@@ -82,7 +82,7 @@ def validate(data, information=None):
 def validate_history(data, previous):
     for key, old in previous['routes'].items():
         new = data['routes'].get(key)
-        if new is None or any(new[field] != old[field] for field in ['name', 'revision']):
+        if new is None or (key.isdecimal() and any(new[field] != old[field] for field in ['name', 'revision'])):
             raise ValueError(f'Published ID removed or reassigned: {key}')
 
 
