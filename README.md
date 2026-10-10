@@ -25,7 +25,13 @@ Python 3.11+:
 python -m pip install -r requirements.txt
 python generate.py
 python -m unittest discover -s tests -v
+python qr_probe.py test-results
+python verify_live.py https://github.com/irshad-js/h/blob/main/README.md test-results/live
 ```
+
+Browser tests use installed Microsoft Edge (`channel='msedge'`) in headless mode. The live test requires successful Pages deployment first. `kicad_probe.py` runs with KiCad 10's bundled Python and takes the generated `matrix.json` plus an output PCB path. It generates an isolated 20 mm coupon, never modifies existing boards.
+
+QR test sizes use 0.35 mm modules **as an experiment**, including a four-module quiet zone on every side. The short test/model URL at Q error correction produces a 14.35 mm square; the longer `hardware-links` URL produces 15.75 mm. Dimensions exclude human-readable labels and extra component/edge clearances. These are not yet approved fabrication dimensions.
 
 Automated QR decoding proves the encoded payload survives the tested digital transformations; it does not qualify a PCB manufacturer or camera.
 
