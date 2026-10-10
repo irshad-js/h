@@ -1,0 +1,128 @@
+{
+  "001": {
+    "purpose": "Vinyan ESP32 learning board with a CH32 USB/interface controller, discrete LED-matrix drivers, buttons, buzzer and sensor expansion.",
+    "power": "USB-C or DC barrel input. Confirm the limit printed on your board: this revision's documented DC input limits are under review. Accessory ports and GPIO use 3.3 V only.",
+    "connectors": ["J1 I2C chain, JST XH 4-pin: 1=3V3, 2=GND, 3=SDA, 4=SCL; ESP32 IO4/IO5.", "JST XH 3-pin accessories: 1=3V3, 2=signal, 3=GND. IN1–IN4 use IO32/33/34/35; OUT1/OUT2 use IO26/27.", "J11/J14 carry the external LED matrix. J15 exposes ESP32 signals; J12 is the sensor socket."],
+    "notes": ["IO34/IO35 are input-only and have no internal pull-up.", "The LDR and NTC share GPIO39/GPIO36 with J12 through jumpers J17/J18. Remove the appropriate jumper before connecting another sensor on that pin.", "IO12 on J12 is an ESP32 boot strap: holding it high at reset can prevent boot.", "This page identifies PCB V 1.0. Existing electrical, thermal and revision review items remain; a QR label does not establish fabrication approval."],
+    "links": [{"label": "Hardware information index", "url": "https://irshad-js.github.io/h/"}]
+  },
+  "002": {
+    "purpose": "Arivaan RP2354B GPIO and logic-analyzer expansion board for the Vinyan ecosystem.",
+    "power": "USB-C powered with a regulated 3.3 V logic rail. GPIO signals are 3.3 V only. PWRA has no onboard supply; its voltage and current limits require review before external power is connected.",
+    "connectors": ["J1032 is the USB-C input.", "J1006–J1009 are 1×08 GPIO/display breakout headers. J1016 is a 2×20 socket; J1004/J1005 and J1030/J1031 are 1×16 headers/sockets.", "J1003 is JST SH 4-pin; J1015 is JST XH 4-pin; J1017–J1019/J1027–J1029 are JST XH 3-pin. Check each connector's printed labels; PWRA is not automatically 3.3 V.", "S1001/S1002 are tactile buttons; debug access includes SWD/SWCLK."],
+    "notes": ["GPIO0 and GPIO1 are connected together on this revision. Do not use default UART0 pins; configure at most one as an output.", "The input protection and regulator load/thermal budget require qualification. This development revision is not a fabrication approval."],
+    "links": [{"label": "Hardware information index", "url": "https://irshad-js.github.io/h/"}]
+  },
+  "003": {
+    "purpose": "Vaghan RP2354B expansion board with DC motor channels, servo outputs, analog inputs and power conditioning.",
+    "power": "USB-C PD or barrel input with 3.3 V, 5 V and motor rails. Follow connector labels and revision-specific load limits. Motor/servo loads and startup safety are unqualified on PCB 0.1; do not treat its connector count as an approved current budget.",
+    "connectors": ["J2 is USB-C; J3/J4 are barrel inputs.", "Motor channels use two dual H-bridge drivers. Servo outputs use J20–J27 JST XH connectors and J28–J33 headers on the 5 V servo rail.", "Analog inputs expose GPIO40–GPIO47 (ADC0–ADC7). USB, I2C, UART and SWD debug connections are available."],
+    "notes": ["The current RP2354B revision is not fabrication-ready. It has outstanding power-path, servo-rail, gate-voltage and motor-startup review items.", "A future controller redesign is separate hardware and will receive a new permanent ID."],
+    "links": [{"label": "Hardware information index", "url": "https://irshad-js.github.io/h/"}]
+  },
+  "004": {
+    "purpose": "BH1750 ambient-light sensor for the Vinyan I2C chain.",
+    "power": "3.3 V only. Do not connect to 5 V.",
+    "connectors": ["Vinyan J1 / JST XH 4-pin: 1=3V3, 2=GND, 3=SDA, 4=SCL. Parallel chain-out uses the same order."],
+    "notes": ["I2C address is 0x23 by default; the address jumper can select 0x5C.", "Optional I2C pull-ups and power LED jumpers are open by default. Vinyan supplies I2C pull-ups.", "The BH1750 land pattern requires datasheet verification before fabrication."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "005": {
+    "purpose": "BMP280 barometric pressure and temperature sensor for the Vinyan I2C chain.",
+    "power": "3.3 V only. Do not connect to 5 V.",
+    "connectors": ["Vinyan J1 / JST XH 4-pin: 1=3V3, 2=GND, 3=SDA, 4=SCL. Parallel chain-out uses the same order."],
+    "notes": ["I2C address is 0x77 by default; the address jumper can select 0x76.", "Keep the sensor vent clear of coating and silkscreen.", "Optional I2C pull-ups and power LED jumpers are open by default."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "006": {
+    "purpose": "DHT11 temperature and humidity sensor with a single-wire data connection.",
+    "power": "3.3 V accessory port only.",
+    "connectors": ["Vinyan OUT1/OUT2 / JST XH 3-pin: 1=3V3, 2=DATA, 3=GND. OUT1/OUT2 use IO26/IO27."],
+    "notes": ["The board provides a 10 kΩ data pull-up.", "Use OUT1/OUT2; IN3/IN4 are input-only and cannot drive the sensor's request pulse."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "007": {
+    "purpose": "Single 10 mm LED indicator driven from a Vinyan output.",
+    "power": "3.3 V accessory port only. The current circuit is intended for a red LED with its fitted series resistor.",
+    "connectors": ["Vinyan OUT1/OUT2 / JST XH 3-pin: 1=3V3, 2=LED, 3=GND."],
+    "notes": ["The LED is driven directly through a series resistor. LED colour and resistor substitutions require checking GPIO current and forward voltage."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "008": {
+    "purpose": "Carrier for a 0.96-inch SSD1306 I2C OLED display.",
+    "power": "3.3 V accessory port only. Verify the display module's supply pins before insertion.",
+    "connectors": ["Vinyan J1 / JST XH 4-pin: 1=3V3, 2=GND, 3=SDA, 4=SCL; parallel chain-out.", "Display socket order: GND, VCC, SCL, SDA. Some modules swap GND/VCC; check your module."],
+    "notes": ["Typical I2C address is 0x3C; some modules use 0x3D.", "The display module can overhang the carrier. Use appropriate mounting standoffs.", "Optional I2C pull-ups are open by default."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "009": {
+    "purpose": "Rotary potentiometer providing an analog input to Vinyan.",
+    "power": "3.3 V only; wiper output spans approximately 0–3.3 V.",
+    "connectors": ["Vinyan IN1–IN4 / JST XH 3-pin: 1=3V3, 2=POT, 3=GND."],
+    "notes": ["The circuit uses a 10 kΩ potentiometer with filtering on the wiper.", "ESP32 ADC response is nonlinear near the upper end of the input range."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "010": {
+    "purpose": "12×12 mm momentary push button with active-low output and RC debounce.",
+    "power": "3.3 V accessory port only.",
+    "connectors": ["Vinyan IN1–IN4 / JST XH 3-pin: 1=3V3, 2=BTN, 3=GND."],
+    "notes": ["Pressed reads low. The board provides a 10 kΩ pull-up and 100 nF debounce capacitor.", "The onboard pull-up permits use on IN3/IN4, which have no internal pull-up."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "011": {
+    "purpose": "Analog carrier for a resistive soil-moisture fork.",
+    "power": "3.3 V accessory port only; analog output stays within the supply range.",
+    "connectors": ["Vinyan IN1–IN4 / JST XH 3-pin: 1=3V3, 2=SOIL, 3=GND.", "The separate two-pin terminal connects the resistive probe."],
+    "notes": ["The probe forms a divider with a 10 kΩ resistor to ground. Wetter soil normally produces a higher reading.", "Resistive probes corrode under continuous DC excitation; inspect the probe periodically."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "012": {
+    "purpose": "CH224K USB-C Power Delivery sink supplying a separate DC power input.",
+    "power": "USB-C PD input; raw VBUS output, normally configured for 12 V or optionally 9 V. Never connect this output to a 3.3 V JST accessory port. Confirm your host board's DC limit before choosing a profile.",
+    "connectors": ["USB-C receptacle is the input.", "Two-pin output terminal: +=VBUS, −=GND. This connects to an approved host DC/barrel input, not its accessory ports."],
+    "notes": ["The configured jumper selects 12 V by default or 9 V. The charger must support the requested profile; a non-PD source supplies 5 V.", "Vinyan's currently documented DC limits are under review. Do not assume every Vinyan revision accepts the default 12 V profile.", "This design is intended for 9/12 V profiles, not 15/20 V."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "013": {
+    "purpose": "Single-pin ultrasonic distance-module carrier.",
+    "power": "3.3 V accessory port only. Use a 3.3 V compatible RCWL-1601 or HC-SR04P; a standard 5 V HC-SR04 is unsuitable.",
+    "connectors": ["Vinyan OUT1/OUT2 / JST XH 3-pin: 1=3V3, 2=SONAR, 3=GND.", "Module socket order: VCC, TRIG, ECHO, GND."],
+    "notes": ["TRIG is driven from SONAR; ECHO connects through 1 kΩ to limit contention.", "Firmware sends a trigger pulse, switches the pin to input and measures the echo pulse. Use a bidirectional OUT port."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "014": {
+    "purpose": "Three WS2812B-2020 addressable RGB LEDs with a data chain-out.",
+    "power": "Vinyan supplies 3.3 V. This is below the WS2812B-2020 documented 3.7 V minimum and remains a hardware qualification limitation.",
+    "connectors": ["Input / Vinyan OUT1/OUT2 / JST XH 3-pin: 1=3V3, 2=DIN, 3=GND.", "Chain-out / JST XH 3-pin: 1=3V3, 2=DOUT, 3=GND."],
+    "notes": ["Addressable LEDs receive a single-wire data stream; DOUT chains to another board.", "Operation at 3.3 V is not guaranteed by the quoted device supply specification. Verify brightness, colour and reliable startup on actual hardware."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "015": {
+    "purpose": "Passive 16×8 matrix with 128 discrete 0402 LEDs for Vinyan's external matrix drivers.",
+    "power": "No onboard driver or standalone supply input. Connect only to the compatible host matrix driver with verified orientation.",
+    "connectors": ["Matrix A carries ROW0–ROW7 and COL0–COL7 to Vinyan J11/J14 pins 9–16.", "Matrix B carries ROW8–ROW15 and COL0–COL7 to Vinyan J11/J14 pins 1–8. Match the printed row/column labels before connecting."],
+    "notes": ["This current source has no PCB title-block revision. Its permanent ID identifies the recorded unversioned source, not every future 0402 matrix.", "The two 8×8 sections have separate row lines; column lines join at the host."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "016": {
+    "purpose": "Passive 16×8 matrix with 128 discrete 0805 LEDs for Arivaan's large-display headers.",
+    "power": "No onboard driver or standalone supply input. Verify host driver compatibility and header orientation before connecting.",
+    "connectors": ["Matrix A: J1008 pins 1–8 carry B1–B8; J1006 pins 9–16 carry C1–C8.", "Matrix B: J1009 pins 1–8 carry B9–B16; J1007 pins 9–16 carry C9–C16."],
+    "notes": ["The matrix is passive; LED drive and current limiting belong to the host.", "Header rows are 24.0 mm apart and the two module centres are 32.265 mm apart."],
+    "links": [{"label": "Arivaan host connection guidance", "url": "https://irshad-js.github.io/h/info/002/"}]
+  },
+  "017": {
+    "purpose": "Passive 8×8 matrix with 64 discrete 0402 LEDs.",
+    "power": "No onboard driver or standalone supply input. Row/column drive and current limiting belong to the compatible host.",
+    "connectors": ["J1/J2 are eight-pin row/column headers. Verify their printed pin labels against the host before connecting."],
+    "notes": ["This current source has no PCB title-block revision. Its permanent ID identifies the recorded unversioned source.", "This is the 8×8 base design used by the 16×8 0402 panel."],
+    "links": [{"label": "Vinyan host connection guidance", "url": "https://irshad-js.github.io/h/info/001/"}]
+  },
+  "018": {
+    "purpose": "Passive 8×8 matrix with 64 discrete 0805 LEDs.",
+    "power": "No onboard driver or standalone supply input. Row/column drive and current limiting belong to the compatible host.",
+    "connectors": ["J1/J2 are eight-pin row/column headers. Verify their printed pin labels against the host before connecting."],
+    "notes": ["This is the 0805 base design used by the 16×8 0805 panel. This page identifies PCB revision 1.0."],
+    "links": [{"label": "Arivaan host connection guidance", "url": "https://irshad-js.github.io/h/info/002/"}]
+  }
+}

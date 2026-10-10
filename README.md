@@ -1,42 +1,53 @@
-# Hardware links — feasibility prototype
+# Permanent Vinyaan hardware links
 
-Stable public entry points for printed hardware QR codes, owned by irshad-js.
+Public hardware information and permanent QR entry points owned by irshad-js.
 
-**Prototype only. No PCB sources changed; no production IDs assigned.**
+Hardware index: https://irshad-js.github.io/h/
 
-Test URL: https://irshad-js.github.io/h/test/
+Printed QR codes encode `https://irshad-js.github.io/h/<ID>/`. Each immutable ID identifies a hardware revision; `registry.json` selects its current HTTPS destination. The first 18 destinations are reviewed information pages under `/h/info/<ID>/`, generated from `hardware.json`. Update destinations when product pages move; retain IDs and information pages indefinitely.
 
-`registry.json` maps immutable IDs to current HTTPS destinations. Run `python generate.py` to generate the site under `docs/`. GitHub Pages publishes `main:/docs`. Each page forwards with `location.replace`, with a visible accessible link if scripts are disabled. Query strings cannot select destinations. Unknown IDs return a helpful 404. No analytics or third-party scripts.
+| IDs | Hardware |
+|---|---|
+| 001–003 | Vinyan, Arivaan, Vaghan |
+| 004–007 | BH1750, BMP280, DHT11, 10 mm LED |
+| 008–011 | OLED, potentiometer, push button, soil moisture |
+| 012–014 | USB-C PD supply, ultrasonic carrier, WS2812B RGB |
+| 015–018 | 16×8 0402, 16×8 0805, 8×8 0402, 8×8 0805 matrices |
 
-## Stability constraints
+The original `test` route remains available.
 
-- Preserve GitHub account, repository name `h`, and published paths indefinitely.
-- Do not configure a custom domain on this project **or the account Pages site**: account-level domains can affect project Pages URLs.
-- Change registry destinations when product pages move; retain old hardware IDs permanently.
-- GitHub Pages is static hosting, not an HTTP 302/307 service. Its CDN can cache old HTML temporarily; destination changes are not guaranteed instantaneous. Never fabricate a QR until its route is deployed and verified.
-- A phone still needs internet access. Physical silk, solder-mask contrast, camera focus, assembly obstructions and enclosure visibility require fabricated-sample testing.
-- Production approval needs model/revision mapping, destination pages, fab silk capability and real camera checks. No unit tracking is proposed.
+## Redirect behavior
 
-## Reproduce
+GitHub Pages publishes `main:/docs`. Entry pages forward using `location.replace`, with a keyboard-accessible fallback link when scripts are disabled. Parameters and fragments cannot choose a destination. Unknown IDs receive a helpful 404. Information strings render as escaped text; no analytics, remote images or third-party scripts run.
+
+Only HTTPS destinations on approved hosts are accepted. Numeric IDs require retained information pages. CI rejects removed/reassigned published identities and generated-file drift. No runtime database or forwarding service is required.
+
+## Stability and destination changes
+
+- Preserve GitHub account `irshad-js`, repository `h` and published route paths.
+- Keep custom domains unset on this project and the account Pages site: account domains can affect project sites.
+- Change only `url` when a destination moves. Hardware `name` and `revision` remain the identity of the printed code; future revisions get new IDs.
+- Generate, test, deploy, then verify the printed URL. Pages is static hosting, not an HTTP 302/307 service. Observed cache header: `max-age=600`; keep previous destinations reachable during transitions and allow caches to expire.
+- Retain GitHub information pages after external destinations change.
+
+## Development and verification
 
 Python 3.11+:
 
 ```sh
 python -m pip install -r requirements.txt
 python generate.py
+python generate.py --check --against previous-registry.json
 python -m unittest discover -s tests -v
-python qr_probe.py test-results
-python verify_live.py https://github.com/irshad-js/h/blob/main/README.md test-results/live
+python verify_live.py test-results/live
 ```
 
-Browser tests use installed Microsoft Edge (`channel='msedge'`) in headless mode. The live test requires successful Pages deployment first. `kicad_probe.py` runs with KiCad 10's bundled Python and takes the generated `matrix.json` plus an output PCB path. It generates an isolated 20 mm coupon, never modifies existing boards.
+Windows tests use installed Edge. Elsewhere install Chromium with `python -m playwright install --with-deps chromium`. Run live checks after Pages deployment succeeds. Every permanent/test route is checked, including parameter handling, information destinations, mobile keyboard fallback and custom 404.
 
-QR test sizes use 0.35 mm modules **as an experiment**, including a four-module quiet zone on every side. The short test/model URL at Q error correction produces a 14.35 mm square; the longer `hardware-links` URL produces 15.75 mm. Dimensions exclude human-readable labels and extra component/edge clearances. These are not yet approved fabrication dimensions.
+`qr_probe.py` generates digital test assets. `kicad_probe.py` uses KiCad's Python to generate a disposable coupon. Production footprints and PCB updates belong to private `HW/common_blocks`: Q error correction, 0.35 mm modules, four-module quiet zone. Three-digit URLs produce a 14.35 mm square before labels and extra clearances.
 
-Automated QR decoding proves the encoded payload survives the tested digital transformations; it does not qualify a PCB manufacturer or camera.
+## Physical qualification
 
-Verified on 2026-10-10 with Python 3.13, Edge headless and KiCad 10.0.6: nine automated tests; 54 QR decode cases; front/back SVG export and all 1,089 module centers per side; silkscreen/outline Gerber generation; live forwarding before and after changing the destination while preserving the printed URL; live keyboard fallback and custom 404. Observed Pages cache header: `max-age=600`.
+Sizes are qualification candidates. Fabrication requires board-specific clearances, assembled visibility, manufacturer capability and five consecutive correct scans on both Android and iPhone for each fabricated board. Software decoding and deployment cannot establish fabrication approval. Existing electrical and hardware release blockers remain applicable.
 
-Remaining qualification: board-specific silk/pad/component/edge clearance, unobstructed assembled visibility, manufacturer capability, and real phone scans of fabricated samples. No hardware or fabrication approval follows from these software tests.
-
-Copyright 2026 irshad ahamed. All rights reserved.
+Copyright 2026 irshad ahamed. All rights reserved. See LICENSE, NOTICE and SECURITY.md.

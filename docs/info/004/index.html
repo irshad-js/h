@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+<title>BH1750 ambient-light sensor</title><link rel="stylesheet" href="/h/style.css"></head>
+<body><main><h1>BH1750 ambient-light sensor</h1><p>Hardware ID: 004 · PCB revision: 0.1</p><h2>Purpose</h2><p>BH1750 ambient-light sensor for the Vinyan I2C chain.</p><h2>Power and connection limits</h2><p>3.3 V only. Do not connect to 5 V.</p><h2>Connectors</h2><ul><li>Vinyan J1 / JST XH 4-pin: 1=3V3, 2=GND, 3=SDA, 4=SCL. Parallel chain-out uses the same order.</li></ul><h2>Usage and revision notes</h2><ul><li>I2C address is 0x23 by default; the address jumper can select 0x5C.</li><li>Optional I2C pull-ups and power LED jumpers are open by default. Vinyan supplies I2C pull-ups.</li><li>The BH1750 land pattern requires datasheet verification before fabrication.</li></ul><h2>Further information</h2><ul><li><a href="https://irshad-js.github.io/h/info/001/">Vinyan host connection guidance</a></li></ul><p><a href="/h/">Hardware index</a></p></main></body></html>

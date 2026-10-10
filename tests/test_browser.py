@@ -1,12 +1,14 @@
 """Real browser checks against local generated HTML, with network targets stubbed."""
 import functools
+import json
+import sys
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import tempfile
 import threading
 import unittest
 from pathlib import Path
 from playwright.sync_api import sync_playwright
-from generate import generate
+from generate import ROOT, generate
 
 
 class QuietHandler(SimpleHTTPRequestHandler):
@@ -18,15 +20,15 @@ class BrowserTests(unittest.TestCase):
     def setUpClass(cls):
         cls.tmp = tempfile.TemporaryDirectory()
         cls.out = Path(cls.tmp.name) / 'h'
-        cls.data = {'version': 1, 'allowed_hosts': ['github.com'], 'routes': {
-            'test': {'name': 'Test board', 'revision': 'Prototype', 'url': 'https://github.com/irshad-js/h'}}}
+        cls.data = json.loads((ROOT / 'registry.json').read_text(encoding='utf-8'))
+        cls.data['routes']['test'] = {'name': 'Test board', 'revision': 'Prototype', 'url': 'https://github.com/irshad-js/h'}
         generate(cls.data, cls.out)
         cls.server = ThreadingHTTPServer(('127.0.0.1', 0), functools.partial(QuietHandler, directory=cls.tmp.name))
         cls.thread = threading.Thread(target=cls.server.serve_forever, daemon=True)
         cls.thread.start()
         cls.base = f'http://127.0.0.1:{cls.server.server_port}/h/'
         cls.pw = sync_playwright().start()
-        cls.browser = cls.pw.chromium.launch(channel='msedge', headless=True)
+        cls.browser = cls.pw.chromium.launch(channel='msedge' if sys.platform == 'win32' else None, headless=True)
 
     @classmethod
     def tearDownClass(cls):
@@ -72,3 +74,18 @@ class BrowserTests(unittest.TestCase):
         finally:
             self.data['routes']['test']['url'] = 'https://github.com/irshad-js/h'
             generate(self.data, self.out)
+
+    def test_production_information_and_mobile_access(self):
+        context = self.context(viewport={'width': 320, 'height': 640})
+        # Map the generated site origin so actual same-origin production redirects run.
+        def serve(route):
+            path = self.out / route.request.url.split('/h/', 1)[1]
+            route.fulfill(path=str(path / 'index.html' if path.is_dir() else path))
+        context.route('https://irshad-js.github.io/h/**', serve)
+        page = context.new_page()
+        for key, item in self.data['routes'].items():
+            if not key.isdecimal(): continue
+            page.goto(self.base + key + '/')
+            page.wait_for_url(item['url'])
+            self.assertTrue(page.get_by_role('heading', name=item['name'], exact=True).is_visible())
+            self.assertFalse(page.evaluate('document.documentElement.scrollWidth > innerWidth'))

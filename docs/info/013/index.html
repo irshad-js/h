@@ -1,0 +1,7 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="referrer" content="no-referrer">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; base-uri 'none'; form-action 'none'">
+<title>Single-pin ultrasonic carrier</title><link rel="stylesheet" href="/h/style.css"></head>
+<body><main><h1>Single-pin ultrasonic carrier</h1><p>Hardware ID: 013 · PCB revision: 0.1</p><h2>Purpose</h2><p>Single-pin ultrasonic distance-module carrier.</p><h2>Power and connection limits</h2><p>3.3 V accessory port only. Use a 3.3 V compatible RCWL-1601 or HC-SR04P; a standard 5 V HC-SR04 is unsuitable.</p><h2>Connectors</h2><ul><li>Vinyan OUT1/OUT2 / JST XH 3-pin: 1=3V3, 2=SONAR, 3=GND.</li><li>Module socket order: VCC, TRIG, ECHO, GND.</li></ul><h2>Usage and revision notes</h2><ul><li>TRIG is driven from SONAR; ECHO connects through 1 kΩ to limit contention.</li><li>Firmware sends a trigger pulse, switches the pin to input and measures the echo pulse. Use a bidirectional OUT port.</li></ul><h2>Further information</h2><ul><li><a href="https://irshad-js.github.io/h/info/001/">Vinyan host connection guidance</a></li></ul><p><a href="/h/">Hardware index</a></p></main></body></html>

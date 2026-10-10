@@ -1,11 +1,104 @@
 {
   "version": 1,
-  "allowed_hosts": ["github.com"],
+  "allowed_hosts": [
+    "github.com",
+    "irshad-js.github.io"
+  ],
   "routes": {
     "test": {
       "name": "Hardware QR feasibility test",
-      "revision": "Prototype only — do not fabricate",
+      "revision": "Prototype only â€” do not fabricate",
       "url": "https://github.com/irshad-js/h/blob/main/README.md"
+    },
+    "001": {
+      "name": "Vinyan",
+      "revision": "V 1.0",
+      "url": "https://irshad-js.github.io/h/info/001/"
+    },
+    "002": {
+      "name": "Arivaan",
+      "revision": "1.0",
+      "url": "https://irshad-js.github.io/h/info/002/"
+    },
+    "003": {
+      "name": "Vaghan",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/003/"
+    },
+    "004": {
+      "name": "BH1750 ambient-light sensor",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/004/"
+    },
+    "005": {
+      "name": "BMP280 pressure sensor",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/005/"
+    },
+    "006": {
+      "name": "DHT11 temperature/humidity sensor",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/006/"
+    },
+    "007": {
+      "name": "10 mm LED indicator",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/007/"
+    },
+    "008": {
+      "name": "SSD1306 OLED carrier",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/008/"
+    },
+    "009": {
+      "name": "Rotary potentiometer",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/009/"
+    },
+    "010": {
+      "name": "12×12 mm push button",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/010/"
+    },
+    "011": {
+      "name": "Soil-moisture carrier",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/011/"
+    },
+    "012": {
+      "name": "CH224K USB-C PD supply",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/012/"
+    },
+    "013": {
+      "name": "Single-pin ultrasonic carrier",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/013/"
+    },
+    "014": {
+      "name": "WS2812B RGB LEDs",
+      "revision": "0.1",
+      "url": "https://irshad-js.github.io/h/info/014/"
+    },
+    "015": {
+      "name": "LED matrix 16×8 0402",
+      "revision": "unversioned",
+      "url": "https://irshad-js.github.io/h/info/015/"
+    },
+    "016": {
+      "name": "LED matrix 16×8 0805",
+      "revision": "1.0",
+      "url": "https://irshad-js.github.io/h/info/016/"
+    },
+    "017": {
+      "name": "LED matrix 8×8 0402",
+      "revision": "unversioned",
+      "url": "https://irshad-js.github.io/h/info/017/"
+    },
+    "018": {
+      "name": "LED matrix 8×8 0805",
+      "revision": "1.0",
+      "url": "https://irshad-js.github.io/h/info/018/"
     }
   }
 }
