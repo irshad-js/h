@@ -35,4 +35,8 @@ QR test sizes use 0.35 mm modules **as an experiment**, including a four-module 
 
 Automated QR decoding proves the encoded payload survives the tested digital transformations; it does not qualify a PCB manufacturer or camera.
 
+Verified on 2026-10-10 with Python 3.13, Edge headless and KiCad 10.0.6: nine automated tests; 54 QR decode cases; front/back SVG export and all 1,089 module centers per side; silkscreen/outline Gerber generation; live forwarding before and after changing the destination while preserving the printed URL; live keyboard fallback and custom 404. Observed Pages cache header: `max-age=600`.
+
+Remaining qualification: board-specific silk/pad/component/edge clearance, unobstructed assembled visibility, manufacturer capability, and real phone scans of fabricated samples. No hardware or fabrication approval follows from these software tests.
+
 Copyright 2026 irshad ahamed. All rights reserved.

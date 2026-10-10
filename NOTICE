@@ -1,0 +1,12 @@
+Hardware links feasibility prototype
+Copyright 2026 irshad ahamed.
+
+Development/test dependencies (installed separately; not bundled into Pages):
+- python-qrcode 8.2: BSD-3-Clause; https://github.com/lincolnloop/python-qrcode
+- Pillow 12.3.0: MIT-CMU; https://github.com/python-pillow/Pillow
+- zxing-cpp 3.1.1: Apache-2.0; https://github.com/zxing-cpp/zxing-cpp
+- Playwright 1.63.0: Apache-2.0; https://github.com/microsoft/playwright-python
+
+KiCad 10.0.6 is an external development tool, not redistributed here.
+Microsoft Edge is an external browser, not redistributed here.
+Dependencies retain their licenses and transitive dependency notices.
