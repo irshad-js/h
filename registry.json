@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "allowed_hosts": ["github.com"],
+  "routes": {
+    "test": {
+      "name": "Hardware QR feasibility test",
+      "revision": "Prototype only — do not fabricate",
+      "url": "https://github.com/irshad-js/h"
+    }
+  }
+}
